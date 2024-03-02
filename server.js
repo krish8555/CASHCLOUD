@@ -23,15 +23,15 @@ db.connect((err) => {
   console.log("MySQL connected");
 });
 
-app.get("/home", (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/home.html");
 });
 
-app.get("/login", (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/login.html");
 });
 
-app.get("/register", (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/register.html");
 });
 

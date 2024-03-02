@@ -3,7 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcryptjs");
-const mysql = require("mysql");
+const mysql = require("mysql2"); // Import mysql2 instead of mysql
 
 const app = express();
 const PORT = process.env.PORT || 3000;

@@ -30,15 +30,24 @@ db.connect((err) => {
 
 // Routes
 app.get("/home", (req, res) => {
-  res.sendFile(__dirname + "/public/home.html");
+  res.sendFile(
+    __dirname +
+      "/Users/sutipatel/Downloads/CASHCLOUD/node-authentication/public/home.html"
+  );
 });
 
 app.get("/login", (req, res) => {
-  res.sendFile(__dirname + "/public/login.html");
+  res.sendFile(
+    __dirname +
+      "/Users/sutipatel/Downloads/CASHCLOUD/node-authentication/public/login.html/login.html"
+  );
 });
 
 app.get("/register", (req, res) => {
-  res.sendFile(__dirname + "/public/register.html");
+  res.sendFile(
+    __dirname +
+      "/public//Users/sutipatel/Downloads/CASHCLOUD/node-authentication/public/register.html.html"
+  );
 });
 
 app.post("/login", (req, res) => {

@@ -1,18 +1,14 @@
-// server.js
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcryptjs");
-const mysql = require("mysql2"); // Import mysql2 instead of mysql
+const mysql = require("mysql2");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// MySQL connection
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -20,7 +16,6 @@ const db = mysql.createConnection({
   database: "APP",
 });
 
-// Connect to MySQL
 db.connect((err) => {
   if (err) {
     throw err;
@@ -28,32 +23,21 @@ db.connect((err) => {
   console.log("MySQL connected");
 });
 
-// Routes
 app.get("/home", (req, res) => {
-  res.sendFile(
-    __dirname +
-      "/Users/sutipatel/Downloads/CASHCLOUD/node-authentication/public/home.html"
-  );
+  res.sendFile(__dirname + "/public/home.html");
 });
 
 app.get("/login", (req, res) => {
-  res.sendFile(
-    __dirname +
-      "/Users/sutipatel/Downloads/CASHCLOUD/node-authentication/public/login.html/login.html"
-  );
+  res.sendFile(__dirname + "/public/login.html");
 });
 
 app.get("/register", (req, res) => {
-  res.sendFile(
-    __dirname +
-      "/public//Users/sutipatel/Downloads/CASHCLOUD/node-authentication/public/register.html.html"
-  );
+  res.sendFile(__dirname + "/public/register.html");
 });
 
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
 
-  // Check if the user exists
   db.query(
     "SELECT * FROM users WHERE username = ?",
     [username],
@@ -68,7 +52,6 @@ app.post("/login", (req, res) => {
 
       const user = results[0];
 
-      // Check password
       if (!bcrypt.compareSync(password, user.password)) {
         return res.status(400).send("Invalid password");
       }
@@ -80,11 +63,8 @@ app.post("/login", (req, res) => {
 
 app.post("/register", (req, res) => {
   const { username, password } = req.body;
-
-  // Hash the password
   const hashedPassword = bcrypt.hashSync(password, 10);
 
-  // Insert new user into database
   db.query(
     "INSERT INTO users (username, password) VALUES (?, ?)",
     [username, hashedPassword],
